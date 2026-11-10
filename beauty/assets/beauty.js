@@ -472,7 +472,8 @@ globalThis.installMFOInternalLearning({"enabled":true,"siteId":"mfo-beauty","con
  function bindFilms(){filmObserver?.disconnect();filmObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>{for(const e of entries)if(!e.isIntersecting)e.target.pause()},{threshold:0}):null;
   document.querySelectorAll('video[data-editorial-film]').forEach(v=>{
    filmObserver?.observe(v);
-   v.addEventListener('play',()=>{document.querySelectorAll('video').forEach(other=>{if(other!==v)other.pause()})});
+   // A film someone plays with sound pauses the others; silent scroll films play side by side.
+   v.addEventListener('play',()=>{if(!v.muted)document.querySelectorAll('video').forEach(other=>{if(other!==v)other.pause()})});
    const fail=()=>{const status=v.closest('figure').querySelector('.film-error');if(status)status.hidden=false};
    v.addEventListener('error',fail);let errors=0;const sources=[...v.querySelectorAll('source')];sources.forEach(source=>source.addEventListener('error',()=>{if(++errors===sources.length)fail()}));
   });
@@ -480,11 +481,11 @@ globalThis.installMFOInternalLearning({"enabled":true,"siteId":"mfo-beauty","con
   shortsObserver?.disconnect();shortsObserver=null;
   if('IntersectionObserver' in window&&matchMedia('(max-width:900px)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!navigator.connection?.saveData){
    shortsObserver=new IntersectionObserver(entries=>{for(const e of entries){if(e.intersectionRatio>=.6&&!document.hidden)e.target.play().catch(()=>{});else e.target.pause()}},{threshold:[0,.6]});
-   document.querySelectorAll('.short-card video').forEach(v=>shortsObserver.observe(v));
+   document.querySelectorAll('.short-card video').forEach(v=>{v.dataset.mfMotion='off';shortsObserver.observe(v)});
   }
  }
  document.addEventListener('visibilitychange',()=>{if(document.hidden)document.querySelectorAll('video').forEach(v=>v.pause())});
- // No prefetch. Only the phone Shorts reel autoplays (muted, in view); reduced-motion and data-saving visitors opt in with native controls.
+ // No prefetch. Every film plays muted by itself as it scrolls into view (the shared motion script below; the phone Shorts reel uses its own swipe rule); reduced-motion and data-saving visitors opt in with native controls.
  const find=id=>products.find(p=>p.id===id);
  const brand=slug=>brands.find(b=>b.slug===slug);
  const readStore=key=>{try{return JSON.parse(localStorage.getItem(key))}catch{return null}};
@@ -515,7 +516,7 @@ globalThis.installMFOInternalLearning({"enabled":true,"siteId":"mfo-beauty","con
  function pageHero(kicker,title,sub){return `<section class="page-hero"><div class="max"><span class="eyebrow">${esc(kicker)}</span><h1>${esc(title)}</h1><p>${esc(sub)}</p></div></section>`}
  function productGrid(items){return items.length?`<div class="product-grid">${items.map(card).join('')}</div>`:`<div class="empty"><div class="eyebrow">No matching products</div><h3>Try a different combination</h3><p class="muted">Unknown ingredient information never counts as a confirmed exclusion.</p><a class="btn light" href="#/shop" data-action="clear-filters">Clear filters</a></div>`}
  function home(){return `<section class="brands-band"><div class="max"><div class="brands-label">On the research desk · Recognizable beauty brands</div><div class="brand-strip">${brands.map(b=>`<button data-action="brand" data-id="${b.slug}" aria-label="Research ${esc(b.name)}">${esc(b.name)}</button>`).join('')}</div><div class="band-note">Research candidates only. No relationship or affiliate approval implied.</div></div></section>
- <section class="hero"><div class="hero-image" role="img" aria-label="Original editorial portrait showing women of different skin tones and hair textures"></div><div class="hero-content"><div class="eyebrow">⊙ CLEAN BEAUTY FOR EVERY FACE</div><h1>Different faces.<br>Shared standards.</h1><p>Premium, vegan-conscious beauty for every skin tone, texture, and preference. Curated with care. Researched with intention. Entirely your own.</p><div class="hero-ctas"><a class="btn" href="#/routine">Build my routine →</a><a class="text-link hero-link" href="#/match">Find my beauty match →</a></div><div class="hero-bottom"><span>Ingredient-aware</span><span>Inclusive by design</span><span>Thoughtful choices</span></div></div><div class="hero-emblem">BEAUTY<br>BELONGS<br>TO EVERYONE</div></section>
+ <section class="hero"><div class="hero-image" role="img" aria-label="Original editorial portrait showing women of different skin tones and hair textures"><video id="heroFilm" class="hero-film" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="${media('editorial-motion.mp4')}" data-webm="${media('editorial-motion.webm')}"></video></div><button type="button" class="hero-motion" data-mf-motion-toggle aria-controls="heroFilm" hidden>Pause motion</button><div class="hero-content"><div class="eyebrow">⊙ CLEAN BEAUTY FOR EVERY FACE</div><h1>Different faces.<br>Shared standards.</h1><p>Premium, vegan-conscious beauty for every skin tone, texture, and preference. Curated with care. Researched with intention. Entirely your own.</p><div class="hero-ctas"><a class="btn" href="#/routine">Build my routine →</a><a class="text-link hero-link" href="#/match">Find my beauty match →</a></div><div class="hero-bottom"><span>Ingredient-aware</span><span>Inclusive by design</span><span>Thoughtful choices</span></div></div><div class="hero-emblem">BEAUTY<br>BELONGS<br>TO EVERYONE</div></section>
  <main id="main"><div class="max"><section class="section-sm"><div class="features"><div class="feature-card"><div class="feature-art rose"><div class="package jar"><span class="pack-mark">THE EDIT</span></div></div><div class="feature-copy"><h3>Beauty Match</h3><p>Your preferences, your routine. Compare products with transparent matching logic.</p><a class="text-link" href="#/match">Find your match →</a></div></div><div class="feature-card"><div class="feature-art"><div class="package dropper"><span class="pack-mark">THE EDIT</span></div></div><div class="feature-copy"><h3>Build My Routine</h3><p>Create a complete ritual with flexible steps, list-price totals and product alternatives.</p><a class="text-link" href="#/routine">Build your routine →</a></div></div><div class="feature-card"><div class="feature-art gold"><div class="package bottle"><span class="pack-mark">THE EDIT</span></div></div><div class="feature-copy"><h3>Compare Products</h3><p>Meaningful side-by-side comparisons, without fabricated reviews or rankings.</p><a class="text-link" href="#/compare">Compare now →</a></div></div></div></section>
  <section class="editorial-stripe" aria-label="Shop by preference"><div class="stripe-row">${[['Skincare','shop','Skincare'],['Haircare','shop','Haircare'],['Nail care','shop','Nails'],['Body care','shop','Body'],['Sensitive skin','shop','sensitive'],['Fragrance-free','shop','free']].map((x,i)=>`<button class="stripe-tile" data-action="category" data-id="${x[2]}">${x[0]} <span>↗</span></button>`).join('')}</div></section>
  <section class="section"><div class="section-title"><div><span class="eyebrow muted">THE EDITOR'S RESEARCH SHELF</span><h2>Considered discoveries</h2><p>Real products from five independent brands, with prices checked on each brand site. Affiliate links go live once each program approves us.</p></div><a class="btn light" href="#/shop">Explore all products →</a></div>${productGrid(products.filter(p=>['osea-seabiotic-water-cream','osea-hyaluronic-sea-serum','kreyol-hair-mayonnaise','londontown-champagne-in-bed'].includes(p.id)))}</section>
@@ -630,5 +631,134 @@ function enhance(row){if(row.dataset.swipeCue)return;var items=[].slice.call(row
  row.addEventListener('scroll',function(){requestAnimationFrame(sync)},{passive:true});window.addEventListener('resize',sync);sync()}
 function scan(){[].forEach.call(document.querySelectorAll(SEL),enhance)}
 new MutationObserver(scan).observe(document.documentElement,{childList:true,subtree:true});scan()})();
+/* Many Faces motion: every video on the page plays by itself, silently and on a loop, when it
+   scrolls into view, and pauses when it leaves. Sources marked data-src load only then.
+   Visitors who ask for reduced motion or data saving get the still picture and the video's
+   own controls instead. A button marked data-mf-motion-toggle pauses and resumes the video it
+   names in aria-controls, and a video the visitor paused stays paused.
+   A video marked data-mf-motion="off" is left to its own page code. */
+(function () {
+  if (typeof window === 'undefined' || typeof document === 'undefined' || typeof navigator === 'undefined' || !document.addEventListener || window.MFMotion) return;
+  var reduced = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  var still = function () { return reduced.matches || saveData; };
+  var seen = new WeakSet();
+  var held = new WeakSet(); // paused by the visitor
+
+  function load(v) {
+    if (v.dataset.mfLoaded) return;
+    v.dataset.mfLoaded = '1';
+    var changed = false;
+    v.querySelectorAll('source[data-src]').forEach(function (s) {
+      if (!s.getAttribute('src')) { s.src = s.dataset.src; changed = true; }
+    });
+    if (!v.getAttribute('src') && !v.querySelector('source[src]') && v.dataset.src) {
+      var mp4 = v.canPlayType('video/mp4; codecs="avc1.42E01E"');
+      v.src = mp4 || !v.dataset.webm ? v.dataset.src : v.dataset.webm;
+      changed = false;
+    }
+    if (changed) v.load();
+  }
+
+  function play(v) {
+    if (still() || held.has(v) || document.hidden) return;
+    load(v);
+    v.muted = true;
+    v.loop = true;
+    v.playsInline = true;
+    v.removeAttribute('hidden');
+    // A film people watch gets the browser's own controls to pause it; a background film
+    // (aria-hidden) is paused with its own Pause motion button.
+    if (!v.hasAttribute('aria-hidden') && !v.closest('a,button') && !document.querySelector('[data-mf-motion-toggle][aria-controls="' + v.id + '"]'))
+      v.controls = true;
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+
+  var io = 'IntersectionObserver' in window
+    ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var v = e.target;
+          v.dataset.mfVisible = e.isIntersecting ? '1' : '';
+          if (e.isIntersecting) play(v);
+          else if (!v.paused) v.pause();
+        });
+      }, { threshold: 0.25 })
+    : null;
+
+  function sync(v) {
+    document.querySelectorAll('[data-mf-motion-toggle][aria-controls="' + v.id + '"]').forEach(function (b) {
+      b.hidden = still();
+      b.setAttribute('aria-pressed', v.paused ? 'true' : 'false');
+      b.textContent = v.paused ? (b.dataset.playLabel || 'Play motion') : (b.dataset.pauseLabel || 'Pause motion');
+    });
+  }
+
+  function watch(v) {
+    if (seen.has(v) || v.dataset.mfMotion === 'off') return;
+    seen.add(v);
+    v.muted = true;
+    v.setAttribute('muted', '');
+    v.setAttribute('playsinline', '');
+    v.addEventListener('playing', function () { v.classList.add('is-playing'); sync(v); });
+    v.addEventListener('pause', function () { sync(v); });
+    v.addEventListener('error', function () {
+      v.classList.remove('is-playing');
+      // An MP4 the browser cannot load falls back to the WebM copy once.
+      var webm = v.dataset.webm;
+      if (webm && !v.dataset.mfTriedWebm && v.getAttribute('src') && v.getAttribute('src') !== webm) {
+        v.dataset.mfTriedWebm = '1';
+        v.src = webm;
+        if (v.dataset.mfVisible) play(v);
+      }
+    }, true);
+    if (io) io.observe(v);
+    else play(v);
+    if (v.id) sync(v);
+  }
+
+  function scan(root) {
+    if (root.tagName === 'VIDEO') watch(root);
+    if (root.querySelectorAll) root.querySelectorAll('video').forEach(watch);
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-mf-motion-toggle]');
+    if (!b) return;
+    var v = document.getElementById(b.getAttribute('aria-controls'));
+    if (!v) return;
+    if (v.paused) { held.delete(v); play(v); }
+    else { held.add(v); v.pause(); }
+    sync(v);
+  });
+
+  document.addEventListener('visibilitychange', function () {
+    document.querySelectorAll('video').forEach(function (v) {
+      if (!seen.has(v)) return;
+      if (document.hidden) v.pause();
+      else if (v.dataset.mfVisible) play(v);
+    });
+  });
+
+  if (reduced.addEventListener)
+    reduced.addEventListener('change', function () {
+      document.querySelectorAll('video').forEach(function (v) {
+        if (!seen.has(v)) return;
+        if (still()) v.pause();
+        else if (v.dataset.mfVisible) play(v);
+        if (v.id) sync(v);
+      });
+    });
+
+  function start() {
+    scan(document.body);
+    new MutationObserver(function (list) {
+      list.forEach(function (m) { m.addedNodes.forEach(function (n) { if (n.nodeType === 1) scan(n); }); });
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+  window.MFMotion = { scan: scan };
+  if (document.body) start();
+  else document.addEventListener('DOMContentLoaded', start);
+})();
 
 })();

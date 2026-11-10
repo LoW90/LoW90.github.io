@@ -438,5 +438,136 @@ function enhance(row){if(row.dataset.swipeCue)return;var items=[].slice.call(row
 function scan(){[].forEach.call(document.querySelectorAll(SEL),enhance)}
 new MutationObserver(scan).observe(document.documentElement,{childList:true,subtree:true});scan()})();
 
+/* Many Faces motion: every video on the page plays by itself, silently and on a loop, when it
+   scrolls into view, and pauses when it leaves. Sources marked data-src load only then.
+   Visitors who ask for reduced motion or data saving get the still picture and the video's
+   own controls instead. A button marked data-mf-motion-toggle pauses and resumes the video it
+   names in aria-controls, and a video the visitor paused stays paused.
+   A video marked data-mf-motion="off" is left to its own page code. */
+(function () {
+  if (typeof window === 'undefined' || typeof document === 'undefined' || typeof navigator === 'undefined' || !document.addEventListener || window.MFMotion) return;
+  var reduced = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  var still = function () { return reduced.matches || saveData; };
+  var seen = new WeakSet();
+  var held = new WeakSet(); // paused by the visitor
+
+  function load(v) {
+    if (v.dataset.mfLoaded) return;
+    v.dataset.mfLoaded = '1';
+    var changed = false;
+    v.querySelectorAll('source[data-src]').forEach(function (s) {
+      if (!s.getAttribute('src')) { s.src = s.dataset.src; changed = true; }
+    });
+    if (!v.getAttribute('src') && !v.querySelector('source[src]') && v.dataset.src) {
+      var mp4 = v.canPlayType('video/mp4; codecs="avc1.42E01E"');
+      v.src = mp4 || !v.dataset.webm ? v.dataset.src : v.dataset.webm;
+      changed = false;
+    }
+    if (changed) v.load();
+  }
+
+  function play(v) {
+    if (still() || held.has(v) || document.hidden) return;
+    load(v);
+    v.muted = true;
+    v.loop = true;
+    v.playsInline = true;
+    v.removeAttribute('hidden');
+    // A film people watch gets the browser's own controls to pause it; a background film
+    // (aria-hidden) is paused with its own Pause motion button.
+    if (!v.hasAttribute('aria-hidden') && !v.closest('a,button') && !document.querySelector('[data-mf-motion-toggle][aria-controls="' + v.id + '"]'))
+      v.controls = true;
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+
+  var io = 'IntersectionObserver' in window
+    ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var v = e.target;
+          v.dataset.mfVisible = e.isIntersecting ? '1' : '';
+          if (e.isIntersecting) play(v);
+          else if (!v.paused) v.pause();
+        });
+      }, { threshold: 0.25 })
+    : null;
+
+  function sync(v) {
+    document.querySelectorAll('[data-mf-motion-toggle][aria-controls="' + v.id + '"]').forEach(function (b) {
+      b.hidden = still();
+      b.setAttribute('aria-pressed', v.paused ? 'true' : 'false');
+      b.textContent = v.paused ? (b.dataset.playLabel || 'Play motion') : (b.dataset.pauseLabel || 'Pause motion');
+    });
+  }
+
+  function watch(v) {
+    if (seen.has(v) || v.dataset.mfMotion === 'off') return;
+    seen.add(v);
+    v.muted = true;
+    v.setAttribute('muted', '');
+    v.setAttribute('playsinline', '');
+    v.addEventListener('playing', function () { v.classList.add('is-playing'); sync(v); });
+    v.addEventListener('pause', function () { sync(v); });
+    v.addEventListener('error', function () {
+      v.classList.remove('is-playing');
+      // An MP4 the browser cannot load falls back to the WebM copy once.
+      var webm = v.dataset.webm;
+      if (webm && !v.dataset.mfTriedWebm && v.getAttribute('src') && v.getAttribute('src') !== webm) {
+        v.dataset.mfTriedWebm = '1';
+        v.src = webm;
+        if (v.dataset.mfVisible) play(v);
+      }
+    }, true);
+    if (io) io.observe(v);
+    else play(v);
+    if (v.id) sync(v);
+  }
+
+  function scan(root) {
+    if (root.tagName === 'VIDEO') watch(root);
+    if (root.querySelectorAll) root.querySelectorAll('video').forEach(watch);
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-mf-motion-toggle]');
+    if (!b) return;
+    var v = document.getElementById(b.getAttribute('aria-controls'));
+    if (!v) return;
+    if (v.paused) { held.delete(v); play(v); }
+    else { held.add(v); v.pause(); }
+    sync(v);
+  });
+
+  document.addEventListener('visibilitychange', function () {
+    document.querySelectorAll('video').forEach(function (v) {
+      if (!seen.has(v)) return;
+      if (document.hidden) v.pause();
+      else if (v.dataset.mfVisible) play(v);
+    });
+  });
+
+  if (reduced.addEventListener)
+    reduced.addEventListener('change', function () {
+      document.querySelectorAll('video').forEach(function (v) {
+        if (!seen.has(v)) return;
+        if (still()) v.pause();
+        else if (v.dataset.mfVisible) play(v);
+        if (v.id) sync(v);
+      });
+    });
+
+  function start() {
+    scan(document.body);
+    new MutationObserver(function (list) {
+      list.forEach(function (m) { m.addedNodes.forEach(function (n) { if (n.nodeType === 1) scan(n); }); });
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+  window.MFMotion = { scan: scan };
+  if (document.body) start();
+  else document.addEventListener('DOMContentLoaded', start);
+})();
+
+
 MFS_READY({productDetail});
 })();

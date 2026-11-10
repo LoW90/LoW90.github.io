@@ -106,6 +106,8 @@ table{font-size:14px}
 @media(max-width:700px){#finderMessage,.actions .button,.announcement,.announcement span,.brand-caption,.caption,.category small,.category span,.compare-bar,.compare-bar .button,.compare-bar>span,.details-list,.guide span,.intro,.motion-toggle,.price small,.principles,.print-only,.product .note,.product .specs,.product-bottom button,.results-line,.saved-nav,.section-head>.textlink,.shop-note,.tabs button,.textlink,details,figcaption,footer p,footer>div:nth-child(2),header nav,label,nav,table{font-size:16px}}
 }
 /* MFO_READABILITY_END */
+/* Hero film: collector moments plays silently over the photo once the hero is on screen. */
+.hero-motion{background:transparent;opacity:0;transition:opacity .8s;pointer-events:none}.hero-motion.is-playing{opacity:1}@media(prefers-reduced-motion:reduce){.hero-motion,.motion-toggle{display:none!important}}@media print{.hero-motion,.motion-toggle{display:none!important}}
 
 
 /* Shopify theme only: empty photo slots and the pages drawn by Liquid (product, library, search, cart, 404, password) */

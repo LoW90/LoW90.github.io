@@ -429,10 +429,10 @@ if(typeof document.addEventListener==='function')document.addEventListener('visi
   if(document.hidden)document.querySelectorAll('video[data-film]').forEach(v=>v.pause());
 });
 
-function studioFilm(){return `<section class="section film-section" aria-labelledby="studio-film-title"><div class="section-head"><div><div class="eyebrow">A moment in the studio</div><h2 id="studio-film-title">Picture the possibilities.</h2></div><p>Three rooms. The details around them. A quiet look at the art of golf at home.</p></div><figure class="studio-film"><video data-film controls playsinline preload="none" width="1280" height="720" poster="${esc(mediaURL('golf-lounge.webp'))}" aria-label="Golf studio concepts: silent 12-second photographic sequence" aria-describedby="studio-film-description"><source src="${esc(mediaURL('golf-film.mp4'))}" type="video/mp4"><source src="${esc(mediaURL('golf-film.webm'))}" type="video/webm"><p>Your browser cannot play this film. <a href="${esc(mediaURL('golf-film.mp4'))}">Open the MP4 film</a> or <a href="${esc(mediaURL('golf-film.webm'))}">the WebM film</a>.</p></video><button type="button" class="secondary film-toggle" data-film-toggle>Play film</button><p data-film-error hidden role="status">This film could not load. <a href="${esc(mediaURL('golf-film.mp4'))}">Open the MP4 film</a> or continue exploring the studio tools.</p><figcaption id="studio-film-description">Optional 12-second silent photographic sequence. AI-generated concepts; no real installation or product performance is depicted. Use the player controls to play or pause.</figcaption></figure></section>`}
+function studioFilm(){return `<section class="section film-section" aria-labelledby="studio-film-title"><div class="section-head"><div><div class="eyebrow">A moment in the studio</div><h2 id="studio-film-title">Picture the possibilities.</h2></div><p>Three rooms. The details around them. A quiet look at the art of golf at home.</p></div><figure class="studio-film"><video data-film controls playsinline preload="none" width="1280" height="720" poster="${esc(mediaURL('golf-lounge.webp'))}" aria-label="Golf studio concepts: silent 12-second photographic sequence" aria-describedby="studio-film-description"><source src="${esc(mediaURL('golf-film.mp4'))}" type="video/mp4"><source src="${esc(mediaURL('golf-film.webm'))}" type="video/webm"><p>Your browser cannot play this film. <a href="${esc(mediaURL('golf-film.mp4'))}">Open the MP4 film</a> or <a href="${esc(mediaURL('golf-film.webm'))}">the WebM film</a>.</p></video><button type="button" class="secondary film-toggle" data-film-toggle>Play film</button><p data-film-error hidden role="status">This film could not load. <a href="${esc(mediaURL('golf-film.mp4'))}">Open the MP4 film</a> or continue exploring the studio tools.</p><figcaption id="studio-film-description">12-second silent photographic sequence that plays as you scroll to it. AI-generated concepts; no real installation or product performance is depicted. Use the player controls to play or pause.</figcaption></figure></section>`}
 const studioTypes=[['The Architectural Studio','eye-xo2','A permanent overhead system for a room designed around the game.','Dedicated room · Shared handedness'],['The Performance Room','trackman-io','An integrated indoor environment for focused practice and refined entertaining.','Premium technology · Fixed installation'],['The Flexible Retreat','mevo-plus','A portable tracking approach for a space that does more than one thing.','Multipurpose room · Rear radar clearance']];
 function studios(){return studioTypes.map((a,i)=>`<article class="studio"><div class="studio-art">${studioArt(i)}</div><div class="studio-body"><div class="meta"><span>0${i+1} / CURATED DIRECTION</span><span>↗</span></div><h3>${a[0]}</h3><p>${a[2]}</p><div class="small">${a[3]}</div><p class="small">Custom equipment scope · Quoted pricing required</p><button class="secondary" data-preset="${a[1]}">Configure this direction →</button></div></article>`).join('')}
-function home(){return `<div class="underhero" aria-label="Manufacturers we cover"><span>EXPLORE THE TECHNOLOGY</span><b>TRACKMAN</b><b>Uneekor</b><b>FORESIGHT SPORTS</b><b>FlightScope</b><b>SKYTRAK</b><b>Full Swing</b><b>Garmin</b><b>Bushnell Golf</b><b>TruGolf</b><b>ProTee</b><b>Rapsodo</b><b>BenQ</b><b>Epson</b><b>Fiberbuilt</b><a class="coverage" href="#sources">Research coverage varies →</a></div><section class="hero"><div class="hero-copy"><div class="eyebrow">The art of golf at home</div><h1>Your game.<br>Beautifully<br><em>at home.</em></h1><p>Exceptional golf starts with a space that works. Discover the technology, design your room, and build a studio that feels entirely yours.</p><div class="hero-actions"><a class="button" href="#planner">Plan my golf room →</a><a class="text-link" href="#studios">Explore the collection →</a></div><p class="small" style="margin-top:24px">Independent guidance. Multiple brands. Your space comes first.</p></div><div class="hero-image">${studioArt().replace('loading="lazy"','loading="eager" fetchpriority="high"')}<div class="caption">ORIGINAL AI-GENERATED STUDIO CONCEPT</div></div></section><div class="steps">${['Discover','Design','Configure','Compare','Purchase'].map((s,i)=>`<a href="#${['shop','planner','builder','compare','offers'][i]}"><small>0${i+1}</small>${s}</a>`).join('')}</div><section class="section"><div class="section-head"><div><div class="eyebrow">A collection of possibilities</div><h2>Make room for<br>an exceptional game.</h2></div><p>Start with the experience you want. We’ll help you understand the equipment, space and decisions that bring it together.</p></div><div class="grid swipe-row">${studios()}</div></section>${studioFilm()}<section class="dark"><div class="section feature"><div><div class="eyebrow">The studio planner</div><h2>A great room.<br>A considered setup.</h2><p>See how your dimensions, hitting position and equipment work together in a live, top-down plan. Understand what fits—and what still needs confirmation.</p><a class="button secondary" style="color:white" href="#planner">Measure. Explore. Refine. ↗</a></div><div style="background:#e9ecdf;color:#233a2b;padding:15px">${roomSVG(defaults.room,Golf.products[0])}</div></div></section><section class="section"><div class="section-head"><div><div class="eyebrow">Independent by design</div><h2>Confidence, before commitment.</h2></div></div><div class="grid"><div>${editorialArt('room-planning')}<h3>Space before specifications.</h3><p>Find the constraints early. Different sensors and installations have different requirements.</p><a class="text-link" href="#planner">Understand your room →</a></div><div>${editorialArt('studio-details')}<h3>The complete picture.</h3><p>Hardware is one part of the project. See software, installation allowances and long-term costs together.</p><a class="text-link" href="#cost">Explore ownership costs →</a></div><div>${editorialArt('golf-lounge')}<h3>Evidence over influence.</h3><p>Published sources inform our research. Merchant compensation never changes a compatibility rule.</p><a class="text-link" href="#about">Read our approach →</a></div></div></section>`}
+function home(){return `<div class="underhero" aria-label="Manufacturers we cover"><span>EXPLORE THE TECHNOLOGY</span><b>TRACKMAN</b><b>Uneekor</b><b>FORESIGHT SPORTS</b><b>FlightScope</b><b>SKYTRAK</b><b>Full Swing</b><b>Garmin</b><b>Bushnell Golf</b><b>TruGolf</b><b>ProTee</b><b>Rapsodo</b><b>BenQ</b><b>Epson</b><b>Fiberbuilt</b><a class="coverage" href="#sources">Research coverage varies →</a></div><section class="hero"><div class="hero-copy"><div class="eyebrow">The art of golf at home</div><h1>Your game.<br>Beautifully<br><em>at home.</em></h1><p>Exceptional golf starts with a space that works. Discover the technology, design your room, and build a studio that feels entirely yours.</p><div class="hero-actions"><a class="button" href="#planner">Plan my golf room →</a><a class="text-link" href="#studios">Explore the collection →</a></div><p class="small" style="margin-top:24px">Independent guidance. Multiple brands. Your space comes first.</p></div><div class="hero-image">${studioArt().replace('loading="lazy"','loading="eager" fetchpriority="high"')}<video id="heroFilm" class="hero-film" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="${esc(mediaURL('golf-film.mp4'))}" data-webm="${esc(mediaURL('golf-film.webm'))}"></video><button type="button" class="hero-motion" data-mf-motion-toggle aria-controls="heroFilm" hidden>Pause motion</button><div class="caption">ORIGINAL AI-GENERATED STUDIO CONCEPT</div></div></section><div class="steps">${['Discover','Design','Configure','Compare','Purchase'].map((s,i)=>`<a href="#${['shop','planner','builder','compare','offers'][i]}"><small>0${i+1}</small>${s}</a>`).join('')}</div><section class="section"><div class="section-head"><div><div class="eyebrow">A collection of possibilities</div><h2>Make room for<br>an exceptional game.</h2></div><p>Start with the experience you want. We’ll help you understand the equipment, space and decisions that bring it together.</p></div><div class="grid swipe-row">${studios()}</div></section>${studioFilm()}<section class="dark"><div class="section feature"><div><div class="eyebrow">The studio planner</div><h2>A great room.<br>A considered setup.</h2><p>See how your dimensions, hitting position and equipment work together in a live, top-down plan. Understand what fits—and what still needs confirmation.</p><a class="button secondary" style="color:white" href="#planner">Measure. Explore. Refine. ↗</a></div><div style="background:#e9ecdf;color:#233a2b;padding:15px">${roomSVG(defaults.room,Golf.products[0])}</div></div></section><section class="section"><div class="section-head"><div><div class="eyebrow">Independent by design</div><h2>Confidence, before commitment.</h2></div></div><div class="grid"><div>${editorialArt('room-planning')}<h3>Space before specifications.</h3><p>Find the constraints early. Different sensors and installations have different requirements.</p><a class="text-link" href="#planner">Understand your room →</a></div><div>${editorialArt('studio-details')}<h3>The complete picture.</h3><p>Hardware is one part of the project. See software, installation allowances and long-term costs together.</p><a class="text-link" href="#cost">Explore ownership costs →</a></div><div>${editorialArt('golf-lounge')}<h3>Evidence over influence.</h3><p>Published sources inform our research. Merchant compensation never changes a compatibility rule.</p><a class="text-link" href="#about">Read our approach →</a></div></div></section>`}
 function roomSVG(r,p){let w=Math.max(1,+r.w||1),d=Math.max(1,+r.d||1),scale=Math.min(540/w,360/d),x=100,y=50,W=w*scale,D=d*scale,teeX=x+W/2+(+r.offset||0)*scale,teeY=y+(1+(+r.ball||0))*scale;let sensorY=p.mount==='Overhead'?teeY-(p.front||0)*scale:p.mount==='Rear floor'?teeY+(p.rear||Math.min(+r.behind,5))*scale:teeY;let sensorX=p.mount==='Side floor'?teeX+(r.hand==='left'?-1.5:1.5)*scale:teeX;return `<svg viewBox="0 0 760 480" role="img" aria-label="Top down golf room ${w.toFixed(1)} feet wide by ${d.toFixed(1)} feet deep; screen at top, tee ${r.ball} feet from screen. Not a safety certification"><defs><pattern id="grid" width="${scale}" height="${scale}" patternUnits="userSpaceOnUse"><path d="M ${scale} 0 L 0 0 0 ${scale}" fill="none" stroke="#b6c2a8" stroke-width=".6"/></pattern></defs><rect x="${x}" y="${y}" width="${W}" height="${D}" fill="url(#grid)" stroke="#3d5c45" stroke-width="3"/><rect x="${x+(W-r.screenW*scale)/2}" y="${y+.65*scale}" width="${r.screenW*scale}" height="${.35*scale}" fill="#1e4533"/><text x="${x+W/2}" y="${y-16}" text-anchor="middle" font-size="14" fill="#27432f">${r.units==='m'?(w*.3048).toFixed(2)+' m':w.toFixed(1)+' ft'} wide</text><text x="${x+W+15}" y="${y+D/2}" font-size="13" fill="#27432f">${r.units==='m'?(d*.3048).toFixed(2)+' m':d.toFixed(1)+' ft'} deep</text><text x="${x+W/2}" y="${y+1.8*scale}" text-anchor="middle" font-size="11">Impact screen · ${r.screenW} ft</text><ellipse cx="${teeX}" cy="${teeY}" rx="${Math.min(W/2,4.5*scale)}" ry="${3.5*scale}" fill="#b59a5530" stroke="#a38b50" stroke-dasharray="5 5"/><rect x="${teeX-1.7*scale}" y="${teeY-1.5*scale}" width="${3.4*scale}" height="${3*scale}" fill="#547b48" opacity=".8"/><circle cx="${teeX}" cy="${teeY}" r="6" fill="white" stroke="#244d34"/><text x="${teeX+12}" y="${teeY+20}" font-size="11">Tee</text><rect x="${sensorX-9}" y="${sensorY-5}" width="18" height="10" rx="2" fill="#263d35"/><text x="${sensorX+13}" y="${sensorY}" font-size="10">Sensor ${p.rear?'':'(schematic)'}</text><rect x="${x+W/2-7}" y="${y+(1+r.throw)*scale}" width="14" height="11" fill="#af8b48"/><line x1="${x+W/2}" y1="${y+(1+r.throw)*scale}" x2="${x+W/2}" y2="${y+scale}" stroke="#af8b48" stroke-dasharray="3 3"/>${r.obstacle?`<rect x="${x+(+r.obstacleX||0)*scale}" y="${y+(+r.obstacleY||0)*scale}" width="${2*scale}" height="${2*scale}" fill="#b65d4d88"/><text x="${x+10}" y="${y+D-12}" fill="#8a3428" font-size="11">Obstacle zone: ${esc(r.obstacleType)}</text>`:''}<text x="${x+W/2}" y="${y+D+30}" text-anchor="middle" fill="#5b6d57" font-size="11">Top-down · 1 square = 1 ft · Swing ellipse is illustrative only</text></svg>`}
 function dimensionField(label,key){let r=state.room;return field(`${label} (${r.units==='m'?'m':'ft'})`,key,r.units==='m'?(r[key]*.3048).toFixed(2):r[key])}
 function validationHTML(v){return `<div class="notice ${v.conflicts.length?'bad':'warn'}"><b>${v.status}</b></div>${v.conflicts.length?'<h4>Resolve these conflicts</h4><ul class="result-list error">'+v.conflicts.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>':''}${v.warnings.length?'<h4>Planning cautions</h4><ul class="result-list">'+v.warnings.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>':''}<details><summary>Unverified requirements (${v.unknown.length})</summary><ul class="result-list">${v.unknown.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`}
@@ -483,5 +483,134 @@ function enhance(row){if(row.dataset.swipeCue)return;var items=[].slice.call(row
  row.addEventListener('scroll',function(){requestAnimationFrame(sync)},{passive:true});window.addEventListener('resize',sync);sync()}
 function scan(){[].forEach.call(document.querySelectorAll(SEL),enhance)}
 new MutationObserver(scan).observe(document.documentElement,{childList:true,subtree:true});scan()})();
+/* Many Faces motion: every video on the page plays by itself, silently and on a loop, when it
+   scrolls into view, and pauses when it leaves. Sources marked data-src load only then.
+   Visitors who ask for reduced motion or data saving get the still picture and the video's
+   own controls instead. A button marked data-mf-motion-toggle pauses and resumes the video it
+   names in aria-controls, and a video the visitor paused stays paused.
+   A video marked data-mf-motion="off" is left to its own page code. */
+(function () {
+  if (typeof window === 'undefined' || typeof document === 'undefined' || typeof navigator === 'undefined' || !document.addEventListener || window.MFMotion) return;
+  var reduced = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  var still = function () { return reduced.matches || saveData; };
+  var seen = new WeakSet();
+  var held = new WeakSet(); // paused by the visitor
+
+  function load(v) {
+    if (v.dataset.mfLoaded) return;
+    v.dataset.mfLoaded = '1';
+    var changed = false;
+    v.querySelectorAll('source[data-src]').forEach(function (s) {
+      if (!s.getAttribute('src')) { s.src = s.dataset.src; changed = true; }
+    });
+    if (!v.getAttribute('src') && !v.querySelector('source[src]') && v.dataset.src) {
+      var mp4 = v.canPlayType('video/mp4; codecs="avc1.42E01E"');
+      v.src = mp4 || !v.dataset.webm ? v.dataset.src : v.dataset.webm;
+      changed = false;
+    }
+    if (changed) v.load();
+  }
+
+  function play(v) {
+    if (still() || held.has(v) || document.hidden) return;
+    load(v);
+    v.muted = true;
+    v.loop = true;
+    v.playsInline = true;
+    v.removeAttribute('hidden');
+    // A film people watch gets the browser's own controls to pause it; a background film
+    // (aria-hidden) is paused with its own Pause motion button.
+    if (!v.hasAttribute('aria-hidden') && !v.closest('a,button') && !document.querySelector('[data-mf-motion-toggle][aria-controls="' + v.id + '"]'))
+      v.controls = true;
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+
+  var io = 'IntersectionObserver' in window
+    ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var v = e.target;
+          v.dataset.mfVisible = e.isIntersecting ? '1' : '';
+          if (e.isIntersecting) play(v);
+          else if (!v.paused) v.pause();
+        });
+      }, { threshold: 0.25 })
+    : null;
+
+  function sync(v) {
+    document.querySelectorAll('[data-mf-motion-toggle][aria-controls="' + v.id + '"]').forEach(function (b) {
+      b.hidden = still();
+      b.setAttribute('aria-pressed', v.paused ? 'true' : 'false');
+      b.textContent = v.paused ? (b.dataset.playLabel || 'Play motion') : (b.dataset.pauseLabel || 'Pause motion');
+    });
+  }
+
+  function watch(v) {
+    if (seen.has(v) || v.dataset.mfMotion === 'off') return;
+    seen.add(v);
+    v.muted = true;
+    v.setAttribute('muted', '');
+    v.setAttribute('playsinline', '');
+    v.addEventListener('playing', function () { v.classList.add('is-playing'); sync(v); });
+    v.addEventListener('pause', function () { sync(v); });
+    v.addEventListener('error', function () {
+      v.classList.remove('is-playing');
+      // An MP4 the browser cannot load falls back to the WebM copy once.
+      var webm = v.dataset.webm;
+      if (webm && !v.dataset.mfTriedWebm && v.getAttribute('src') && v.getAttribute('src') !== webm) {
+        v.dataset.mfTriedWebm = '1';
+        v.src = webm;
+        if (v.dataset.mfVisible) play(v);
+      }
+    }, true);
+    if (io) io.observe(v);
+    else play(v);
+    if (v.id) sync(v);
+  }
+
+  function scan(root) {
+    if (root.tagName === 'VIDEO') watch(root);
+    if (root.querySelectorAll) root.querySelectorAll('video').forEach(watch);
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-mf-motion-toggle]');
+    if (!b) return;
+    var v = document.getElementById(b.getAttribute('aria-controls'));
+    if (!v) return;
+    if (v.paused) { held.delete(v); play(v); }
+    else { held.add(v); v.pause(); }
+    sync(v);
+  });
+
+  document.addEventListener('visibilitychange', function () {
+    document.querySelectorAll('video').forEach(function (v) {
+      if (!seen.has(v)) return;
+      if (document.hidden) v.pause();
+      else if (v.dataset.mfVisible) play(v);
+    });
+  });
+
+  if (reduced.addEventListener)
+    reduced.addEventListener('change', function () {
+      document.querySelectorAll('video').forEach(function (v) {
+        if (!seen.has(v)) return;
+        if (still()) v.pause();
+        else if (v.dataset.mfVisible) play(v);
+        if (v.id) sync(v);
+      });
+    });
+
+  function start() {
+    scan(document.body);
+    new MutationObserver(function (list) {
+      list.forEach(function (m) { m.addedNodes.forEach(function (n) { if (n.nodeType === 1) scan(n); }); });
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+  window.MFMotion = { scan: scan };
+  if (document.body) start();
+  else document.addEventListener('DOMContentLoaded', start);
+})();
 
 })();
