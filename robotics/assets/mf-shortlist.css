@@ -1,0 +1,20 @@
+/* Your Private Shortlist (D-026). Colours come from the host store through --mfk-* set in the generated snippet. */
+.mf-keep{margin:32px 0 8px;padding:28px 24px;border:1px solid var(--mfk-line);border-top:3px solid var(--mfk-accent);border-radius:18px;background:var(--mfk-surface);color:var(--mfk-ink);max-width:720px;font-size:16px;line-height:1.55}
+.mf-keep[hidden],.mf-keep [hidden]{display:none!important}
+.mf-keep__eyebrow{margin:0 0 6px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--mfk-muted)}
+.mf-keep__title{margin:0 0 10px;font-size:clamp(22px,3vw,28px);line-height:1.2;color:var(--mfk-ink)}
+.mf-keep__note,.mf-keep__done{margin:0 0 16px;color:var(--mfk-ink)}
+.mf-keep__form{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.mf-keep__label{display:flex;flex-direction:column;gap:6px;flex:1 1 260px;font-size:15px;color:var(--mfk-muted)}
+.mf-keep__label input,.mf-keep__link input{min-height:48px;padding:10px 14px;border:1px solid var(--mfk-line);border-radius:10px;background:#fff;color:var(--mfk-ink);font:inherit;font-size:16px}
+.mf-keep__primary{min-height:48px;font-size:16px}
+.mf-keep__fine{margin:12px 0 0;font-size:14px;color:var(--mfk-muted)}
+.mf-keep__fine a,.mf-keep__ask{color:var(--mfk-ink);text-decoration:underline;text-underline-offset:3px}
+.mf-keep__alt{margin:18px 0 0;font-size:15px;color:var(--mfk-muted)}
+.mf-keep__copy,.mf-restore__later{min-height:44px;padding:0;border:0;background:none;color:var(--mfk-ink);font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.mf-keep__link{margin:12px 0 0}
+.mf-keep__link label{display:flex;flex-direction:column;gap:6px;font-size:15px;color:var(--mfk-muted)}
+.mf-restore{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin:0;padding:16px 20px;background:var(--mfk-surface);border-bottom:1px solid var(--mfk-line);color:var(--mfk-ink);font-size:16px}
+.mf-restore p{margin:0;flex:1 1 280px}
+.mf-buy-note{display:block;margin:6px 0 0;font-size:14px;line-height:1.4;color:var(--mfk-muted)}
+@media (max-width:600px){.mf-keep{padding:22px 16px}.mf-keep__primary{width:100%}}
