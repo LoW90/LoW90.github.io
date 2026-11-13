@@ -364,3 +364,13 @@ h3{font-size:26px}
 #savedDrawer .mf-keep{margin:16px 0;padding:22px 18px}
 /* Home hero film: covers the photo; the photo shows when the film is switched off. */
 .hero-film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% center;background:#1a2440}
+/* Phone hero: the hero grows with its text and the "01 / ..." line sits below the trust lines instead of on top of them,
+   so larger iPhone text sizes can't make them overlap. */
+@media(max-width:700px){
+.hero{height:auto;min-height:580px}
+.hero-inner{flex-direction:column;align-items:stretch;justify-content:center;padding-top:44px;padding-bottom:22px;min-height:580px}
+.hero-bottom{position:static;margin-top:34px;gap:16px}
+.hero-bottom>span:last-child{text-align:right}
+}
+/* The lifestyle film has no poster: the hero photo shows through until it plays (and stays for reduced motion on Safari). */
+.hero-film--lifestyle{background:transparent;object-position:center}
