@@ -529,3 +529,20 @@ h3{font-size:26px}
  .mf-site--robotics .hero-eyebrow{max-width:calc(100% - 110px)}
  .mf-site--sauna .hero-film[data-mf-film]{filter:brightness(.5)}
 }
+
+/* Phones: the telescope sits on the right of the hero film, where the headline covered it. Below 700px the film gets
+   its own frame at the top, framed on the telescope, and the words sit underneath on the night-sky colour. Same film,
+   same poster, nothing cropped out of the files. The media label sits inside the film frame, clear of the hero labels. */
+@media(max-width:700px){
+ .hero{--mft-frame:clamp(300px,92vw,420px);height:auto;min-height:0;padding-top:var(--mft-frame);background:#0a1322}
+ .hero-photo,.hero .hero-film,.hero .hero-film video{inset:0 0 auto 0;height:var(--mft-frame);transform:none}
+ .hero-photo{background-position:82% center}
+ .hero .hero-film,.hero .hero-film video{object-position:82% center}
+ .hero .hero-film[data-mf-film],.hero .hero-film video{filter:none}
+ .hero-shade{inset:0 0 auto 0;height:var(--mft-frame);background:linear-gradient(180deg,rgba(10,19,34,.35) 0%,transparent 22%,transparent 68%,#0a1322 100%)}
+ .hero-inner{height:auto;display:block;padding-top:6px;padding-bottom:24px}
+ .hero-content{margin-top:0}
+ .hero h1{margin-top:14px}
+ .hero-bottom{position:static;margin-top:30px;gap:16px}
+ .hero .mfo-media-note,.hero .mf-site__credit{top:calc(var(--mft-frame) - 40px);bottom:auto;right:12px;left:auto;font-size:11px}
+}
