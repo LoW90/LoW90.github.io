@@ -374,3 +374,5 @@ h3{font-size:26px}
 }
 /* The lifestyle film has no poster: the hero photo shows through until it plays (and stays for reduced motion on Safari). */
 .hero-film--lifestyle{background:transparent;object-position:center}
+/* RunwayML snow blower film: on narrow phones keep the machine (right of centre) in frame. */
+@media(max-width:700px){.hero-film:not(.hero-film--lifestyle){object-position:78% center}}
