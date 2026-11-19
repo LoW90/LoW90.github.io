@@ -114,9 +114,15 @@
   .mf-room__teaser-list .mf-room__brand{color:var(--mf-muted)}
   .mf-room__teaser-list small{color:var(--mf-muted);font-size:15px}
   .mf-room__more{display:inline-flex;align-items:center;min-height:48px;font-size:16px}
+  .mf-room__strip{background:var(--mf-band);border-bottom:1px solid var(--mf-line);padding:14px 0 16px}
+  .mf-room__strip .mf-room__eyebrow{margin:0 0 6px;font-size:12px;white-space:normal}
+  .mf-room__strip ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 22px}
+  .mf-room__strip a{display:inline-flex;align-items:center;min-height:32px;font-family:var(--mf-serif);font-size:clamp(16px,1.8vw,20px);color:var(--mf-ink);text-decoration:none}
+  .mf-room__strip a:hover,.mf-room__strip a:focus-visible{text-decoration:underline;text-underline-offset:4px}
   @media (max-width:640px){.mf-room__maker{min-height:240px}.mf-room__monogram{font-size:84px}}
   .mf-room__editor{padding:10px 12px;border:1px dashed var(--mf-line);border-radius:8px;font-size:14px;color:var(--mf-muted)}
 </style><div class="mf-room" data-mf-room="smart-telescopes" aria-labelledby="mf-room-room">
+  <nav class="mf-room__strip" aria-label="Makers in this room"><div class="mf-room__shell"><p class="mf-room__eyebrow mf-room__eyebrow--gold">The makers in this room, not endorsements</p><ul><li><a href="#mf-room-maker-unistellar-room">Unistellar</a></li><li><a href="#mf-room-maker-celestron-room">Celestron</a></li><li><a href="#mf-room-maker-vaonis-room">Vaonis</a></li><li><a href="#mf-room-maker-zwo-room">ZWO</a></li><li><a href="#mf-room-maker-dwarflab-room">DwarfLab</a></li></ul></div></nav>
   <header class="mf-room__hero"><div class="mf-room__shell">
       <div class="mf-room__heading">
         <p class="mf-room__eyebrow">New in intelligent machines</p>
@@ -134,35 +140,35 @@
       <div class="mf-room__shell">
         <div class="mf-room__head"><div><p class="mf-room__eyebrow mf-room__eyebrow--gold">Makers on our research desk, not endorsements</p><h2 id="mf-room-makers-room">The makers to know</h2></div><p>The names that lead this category. Each tile can carry the maker's own film or photograph once they allow it.</p></div>
         <ul>
-      <li class="mf-room__maker" data-mf-maker="unistellar"><span class="mf-room__monogram" aria-hidden="true">U</span><div class="mf-room__maker-text">
+      <li class="mf-room__maker" id="mf-room-maker-unistellar-room" data-mf-maker="unistellar"><span class="mf-room__monogram" aria-hidden="true">U</span><div class="mf-room__maker-text">
           <span class="mf-room__eyebrow">01 / Maker</span>
           <strong>Unistellar</strong>
           <span>French smart telescopes with a Nikon-developed electronic eyepiece.</span>
           <a href="https://www.unistellar.com/" target="_blank" rel="noopener">Visit Unistellar <span aria-hidden="true">↗</span></a>
         </div>
       </li>
-      <li class="mf-room__maker" data-mf-maker="celestron"><span class="mf-room__monogram" aria-hidden="true">C</span><div class="mf-room__maker-text">
+      <li class="mf-room__maker" id="mf-room-maker-celestron-room" data-mf-maker="celestron"><span class="mf-room__monogram" aria-hidden="true">C</span><div class="mf-room__maker-text">
           <span class="mf-room__eyebrow">02 / Maker</span>
           <strong>Celestron</strong>
           <span>American telescopes, including the Origin smart telescope.</span>
           <a href="https://www.celestron.com/" target="_blank" rel="noopener">Visit Celestron <span aria-hidden="true">↗</span></a>
         </div>
       </li>
-      <li class="mf-room__maker" data-mf-maker="vaonis"><span class="mf-room__monogram" aria-hidden="true">V</span><div class="mf-room__maker-text">
+      <li class="mf-room__maker" id="mf-room-maker-vaonis-room" data-mf-maker="vaonis"><span class="mf-room__monogram" aria-hidden="true">V</span><div class="mf-room__maker-text">
           <span class="mf-room__eyebrow">03 / Maker</span>
           <strong>Vaonis</strong>
           <span>French smart telescopes, including the Vespera range and Stellina.</span>
           <a href="https://vaonis.com/" target="_blank" rel="noopener">Visit Vaonis <span aria-hidden="true">↗</span></a>
         </div>
       </li>
-      <li class="mf-room__maker" data-mf-maker="zwo"><span class="mf-room__monogram" aria-hidden="true">Z</span><div class="mf-room__maker-text">
+      <li class="mf-room__maker" id="mf-room-maker-zwo-room" data-mf-maker="zwo"><span class="mf-room__monogram" aria-hidden="true">Z</span><div class="mf-room__maker-text">
           <span class="mf-room__eyebrow">04 / Maker</span>
           <strong>ZWO</strong>
           <span>Seestar smart telescopes and astronomy cameras.</span>
           <a href="https://www.zwoastro.com/" target="_blank" rel="noopener">Visit ZWO <span aria-hidden="true">↗</span></a>
         </div>
       </li>
-      <li class="mf-room__maker" data-mf-maker="dwarflab"><span class="mf-room__monogram" aria-hidden="true">D</span><div class="mf-room__maker-text">
+      <li class="mf-room__maker" id="mf-room-maker-dwarflab-room" data-mf-maker="dwarflab"><span class="mf-room__monogram" aria-hidden="true">D</span><div class="mf-room__maker-text">
           <span class="mf-room__eyebrow">05 / Maker</span>
           <strong>DwarfLab</strong>
           <span>Compact smart telescopes, including the DWARF 3.</span>
